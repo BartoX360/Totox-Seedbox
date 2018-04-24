@@ -1,0 +1,40 @@
+# Vitesse de téléchargement max up/down, en KiB. "0" équivaut à aucune limite.
+download_rate = 0
+upload_rate = 10000
+
+# Nombre maximal de téléchargements simultanés
+max_downloads_global = 10
+
+# Nombre maximal de peers par torrent
+max_peers = 100
+
+# Nombre maximal de peers à upload par torrent
+max_uploads = 20
+
+# Répertoire qui contient les fichiers téléchargés.
+directory = /srv/seedbox/downloads
+
+# Répertoire où rtorrent stocke l'état de téléchargement des torrents.
+session = /srv/seedbox/.session
+
+# Ports utilisables par rTorrent. 2x la même valeur = 1 port
+port_range = 49999-49999
+port_random = no
+
+# Vérification des données à la fin du téléchargement
+check_hash = yes
+
+# Activation de DHT pour les torrents sans trackers.
+# À désactiver si vous utilisez des trackers privés
+dht = auto
+dht_port = 6881
+peer_exchange = yes
+
+# On préfère les échanges avec chiffrement
+encryption = allow_incoming,try_outgoing,enable_retry
+
+# On autorise les trackers UDP
+use_udp_trackers = yes
+
+# Port SCGI, on en a besoin pour communiquer avec Flood
+scgi_port = 127.0.0.1:5000
