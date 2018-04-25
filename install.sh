@@ -1,8 +1,7 @@
 #!/bin/bash
 dirStart=$(pwd) # On récupère le dossier ou on est actuellement pour l'installation plus tard
-echo "Entrez le dossier ou sera installé la seedbox: "
+echo "Entrez le dossier ou sera installé la seedbox (Exemple /srv/seedbox): "
 read dirSeedbox
-
 echo $dirSeedbox
 if [ "$UID" -ne "0" ] # On vérifie que l'utilisateur est bien root
 then
@@ -15,18 +14,13 @@ echo "| Ce Script va installer rTorrent avec l'interface Flood ainsi qu'un serve
 echo "| Script testé sur Debian 9. Le lancer sur une machine propre est fortement recommandé.                                                 |"
 echo "| Je vous recommande de lancer le script dans un screen, l'installation étant assez longue on est jamais à l'abri d'une coupure réseau. |"
 echo "-----------------------------------------------------------------------------------------------------------------------------------------"
-echo "-------------------------"
-echo "| Installation de Nginx |"
-echo "-------------------------"
-
-
 echo "----------------------------"
 echo "| Installation de rTorrent |"
 echo "----------------------------"
 echo "Mise à jour des paquets" # Je met à jour les paquets et fais un uprade au cas ou. A voir pour peut-être enlever l'upgrade.
 apt-get update && apt-get upgrade -y
 echo "Installation des dépendances de rTorrent"
-apt install build-essential subversion autoconf g++ gcc curl comerr-dev pkg-config cfv libtool libssl-dev libncurses5-dev ncurses-term libsigc++-2.0-dev libcppunit-dev libcurl3 libcurl4-openssl-dev
+apt install build-essential subversion autoconf g++ gcc curl comerr-dev pkg-config cfv libtool libssl-dev libncurses5-dev ncurses-term libsigc++-2.0-dev libcppunit-dev libcurl3 libcurl4-openssl-dev -y
 echo "Installation de XML-RPC" # Permet la communication avec Flood
 svn co -q https://svn.code.sf.net/p/xmlrpc-c/code/stable /tmp/xmlrpc-c
 echo "Compilation et installation de XML-RPC"
@@ -80,17 +74,18 @@ git clone https://github.com/jfurrow/flood.git
 echo "On installe le fichier de configuration de flood"
 cd $dirSeedbox/flood
 cp config.template.js config.js
-
-
-
-echo "Faire partie script initialisation"
-
-
-
-
 echo "Création de l'utilisateur Flood"
 adduser --disabled-password flood
 chown -R flood:flood $dirSeedbox/flood/
+echo "Création du script pour Systemd"
+cp $dirStart/flood.service /etc/systemd/system/flood.service
+echo "Activation du service rTorrent et démarrage au boot du serveur"
+systemctl daemon-reload
+systemctl enable flood.service
+systemctl start flood.service
+echo "-------------------------"
+echo "| Installation de Nginx |"
+echo "-------------------------"
 
 echo "-------------------------"
 echo "| Installation terminée |"

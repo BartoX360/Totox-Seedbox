@@ -1,0 +1,13 @@
+[Service]
+WorkingDirectory=/srv/seedbox/flood
+ExecStart=/usr/bin/npm start
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=notell
+User=flood
+Group=flood
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
