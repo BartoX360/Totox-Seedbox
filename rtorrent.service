@@ -6,8 +6,8 @@ After=network.target
 User=rtorrent
 Type=forking
 KillMode=none
-ExecStart=/usr/bin/screen -d -m -fa -S rtorrent /usr/local/bin/rtorrent
-ExecStop=/usr/bin/killall -w -s 2 /usr/local/bin/rtorrent
+ExecStart=/usr/bin/screen -d -m -fa -S rtorrent /usr/bin/rtorrent
+ExecStop=/usr/bin/killall -w -s 2 /usr/bin/rtorrent
 WorkingDirectory=%h
 
 [Install]
