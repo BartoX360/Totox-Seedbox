@@ -2,7 +2,6 @@
 dirStart=$(pwd) # On récupère le dossier ou on est actuellement pour l'installation plus tard
 echo "Entrez le dossier ou sera installé la seedbox (Exemple /srv/seedbox): "
 read dirSeedbox
-echo $dirSeedbox
 if [ "$UID" -ne "0" ] # On vérifie que l'utilisateur est bien root
 then
    echo "Le script doit être lancé en Root, installation abandonnée"
@@ -18,35 +17,9 @@ echo "----------------------------"
 echo "| Installation de rTorrent |"
 echo "----------------------------"
 echo "Mise à jour des paquets" # Je met à jour les paquets et fais un uprade au cas ou. A voir pour peut-être enlever l'upgrade.
-apt-get update && apt-get upgrade -y
-echo "Installation des dépendances de rTorrent"
-apt install build-essential subversion autoconf g++ gcc curl comerr-dev pkg-config cfv libtool libssl-dev libncurses5-dev ncurses-term libsigc++-2.0-dev libcppunit-dev libcurl3 libcurl4-openssl-dev -y
-echo "Installation de XML-RPC" # Permet la communication avec Flood
-svn co -q https://svn.code.sf.net/p/xmlrpc-c/code/stable /tmp/xmlrpc-c
-echo "Compilation et installation de XML-RPC"
-cd /tmp/xmlrpc-c
-./configure
-make -j $(nproc)
-make install
-echo "Téléchargement de libTorrent"
-cd /tmp
-curl http://rtorrent.net/downloads/libtorrent-0.13.6.tar.gz | tar xz
-echo "Compilation et installation de libTorrent"
-cd libtorrent-0.13.6
-./autogen.sh
-./configure
-make -j $(nproc)
-make install
-echo "On télécharge rTorrent"
-cd /tmp
-curl http://rtorrent.net/downloads/rtorrent-0.9.6.tar.gz | tar xz
-echo "Compilation et installation de rTorrent"
-cd rtorrent-0.9.6
-./autogen.sh
-./configure --with-xmlrpc-c
-make -j $(nproc)
-make install
-ldconfig
+apt-get update
+echo "Installation des dépendances de rTorrent et rTorrent"
+apt install rtorrent sudo screen build-essential subversion autoconf g++ gcc curl comerr-dev pkg-config cfv libtool libssl-dev libncurses5-dev ncurses-term libsigc++-2.0-dev libcppunit-dev libcurl3 libcurl4-openssl-dev -y
 echo "Création de l'utilisateur rtorrent"
 adduser --disabled-password rtorrent
 echo "Copie du fichier de configuration de rTorrent"
