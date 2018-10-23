@@ -14,7 +14,7 @@ max_uploads = 20
 # Répertoire qui contient les fichiers téléchargés.
 directory = /srv/seedbox/downloads
 
-# Répertoire où rtorrent stocke l'état de téléchargement des torrents.
+# Répertoire où rtorrent stocke l état de téléchargement des torrents.
 session = /srv/seedbox/.session
 
 # Ports utilisables par rTorrent. 2x la même valeur = 1 port
