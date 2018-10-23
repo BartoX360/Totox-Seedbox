@@ -1,7 +1,6 @@
 #!/bin/bash
 dirStart=$(pwd) # On récupère le dossier ou on est actuellement pour l'installation plus tard
 read -p 'Entrez le dossier ou sera installé la seedbox (Exemple /srv/seedbox): ' dirSeedbox
-echo "La Seebox sera installée dans "$dirSeedbox
 if [ -d "$dirSeedbox" ]
 then
   if [ "$UID" -ne "0" ] # On vérifie que l'utilisateur est bien root
