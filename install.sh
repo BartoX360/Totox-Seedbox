@@ -60,8 +60,9 @@ then
   systemctl start flood.service
   echo "-------------------------"
   echo "| Installation de Nginx |"
+       "|  En cours d'écriture  |"
   echo "-------------------------"
-  apt install nginx -y
+  #apt install nginx -y
   echo "-------------------------"
   echo "| Installation terminée |"
   echo "-------------------------"
