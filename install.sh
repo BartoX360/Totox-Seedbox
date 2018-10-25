@@ -82,6 +82,6 @@ then
   echo "Pour redémarrer Flood : systemctl restart flood"
 
 else
-        echo "Répertoire non valide, merci d'ajouter un répertoire valide."
+        echo "Répertoire inexistant ou vide, merci d'ajouter un répertoire valide."
         exit 1
 fi
